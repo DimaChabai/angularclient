@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <div *ngFor="let part of participants" class="col-md-auto">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">
+            {{part.name}}
+          </h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              "page.content.territory"{{part.place.idPlace}}
+              "page.content.seats"
+              {{part.place.seats}}</li>
+          </ul>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{part.beerType}}</li>
+          </ul>
+          <div class="card-footer">
+            <a (click)="accept(part)" class="btn btn-primary">
+              "page.content.accept_button"
+            </a>
+            <br/>
+            <a (click)="decline(part)" class="btn btn-danger">
+              "page.content.decline_button"
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
