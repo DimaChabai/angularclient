@@ -9,7 +9,7 @@ import {ParticipantServiceService} from './participant-service.service';
 import {HttpClientModule} from '@angular/common/http';
 import {ParticipantVerificationListComponent} from './participant-verification-list/participant-verification-list.component';
 import {CreatePlaceComponent} from './create-place/create-place.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PlaceServiceService} from './place-service.service';
 
 
@@ -24,7 +24,8 @@ import {PlaceServiceService} from './place-service.service';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     ParticipantServiceService,

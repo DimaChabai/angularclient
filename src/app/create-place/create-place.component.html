@@ -1,24 +1,24 @@
 <div class="container">
-  <form class="was-validated">
-  <div class="form-group">
-    <label>
-      "page.content.type"
-    </label>
-    <select id="placeType" class="form-control"(change)="setInputMax()" #placeType>
-      <option *ngFor="let type of types"
-              [value]="type">{{type}}
-      </option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="seats">
-      "page.content.seats_number"
-    </label>
-    <input class="form-control" type="number" max="10" name="seats" id="seats" #seatsCount>
-  </div>
-  <button type="submit" class="btn btn-primary" (click)="createPlace(seatsCount.value, placeType.value); seatsCount.value='0'; placeType.value='SMALL'">
-    "page.content.create_label"
-  </button>
+  <form [formGroup]="heroForm" (ngSubmit)="createPlace(seats.value,type.value)">
+      <div class="form-group">
+        <label>
+          "page.content.type"
+        </label>
+        <select id="type" formControlName="type" class="form-control" #type >
+          <option *ngFor="let type of types"
+                  [value]="type">{{type}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="seats">
+          "page.content.seats_number"
+        </label>
+        <input class="form-control" id="seats" formControlName="seats" type="number" #seats>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="heroForm.errors?.placeInvalid">
+        "page.content.create_label"
+      </button>
   </form>
 </div>
 

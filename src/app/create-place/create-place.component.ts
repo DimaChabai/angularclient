@@ -1,8 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {PlaceType} from '../place-type.enum';
 import {PlaceServiceService} from '../place-service.service';
-import {Place} from '../place';
+import {FormControl, FormGroup} from "@angular/forms";
+import { Place } from 'app/place';
+import {placeValidator} from "../shared/place-validator.directive";
 
 @Component({
   selector: 'app-create-place',
@@ -12,28 +14,20 @@ import {Place} from '../place';
 export class CreatePlaceComponent implements OnInit {
 
   public types = Object.values(PlaceType).filter(value => typeof value != 'number');
-
-  constructor(@Inject(DOCUMENT) private doc: Document, private service: PlaceServiceService) { }
+  public place = {type: this.types[0], seats:0};
+  heroForm: FormGroup;
+  constructor(@Inject(DOCUMENT) private doc: Document, private service: PlaceServiceService) {
+  }
 
   ngOnInit() {
+    this.heroForm = new FormGroup({
+      'type': new FormControl(this.place.type),
+      'seats': new FormControl(this.place.seats)
+    },{ validators: placeValidator});
   }
 
-  setInputMax() {
-    const select = this.doc.getElementById('placeType');
-    const seats = this.doc.getElementById('seats');
-    if (select.value === 'SMALL') {
-      seats.max = 10;
-    } else if (select.value === 'MEDIUM') {
-      seats.max = 15;
-    } else {
-      seats.max = 20;
-    }
-  }
-
-  createPlace(seats: string, type: PlaceType) {
-    alert(seats);
-    alert(type);
-    // this.service.create({seats} as Place);
+  createPlace(seats: number, type: PlaceType) {
+    this.service.create({seats, type} as Place).subscribe(data=>alert(data));
   }
 
 }
